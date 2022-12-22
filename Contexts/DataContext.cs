@@ -7,7 +7,8 @@ public class DataContext : DbContext
         : base(options)
     {
     }
-
-    public DbSet<Profile> Profile { get; set; }
     public DbSet<SiteEntity> Site { get; set; }
+
+    public DbSet<ProfileEntity> Profile { get; set; }
+
 }

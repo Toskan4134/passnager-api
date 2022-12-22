@@ -10,21 +10,22 @@ public class ProfileService : IProfileService
         _context = context;
     }
 
-    public async Task<IEnumerable<Profile>> GetAll()
+    public async Task<List<ProfileEntity>> GetAll()
     {
-        return await _context.Profile.ToListAsync();
+        return await _context.Profile.Where(p => p.IsActive).ToListAsync();
     }
 
-    public async Task<Profile> GetById(int id)
+    public async Task<ProfileEntity> GetById(int id)
     {
-        return await _context.Profile.FindAsync(id);
+        return await _context.Profile.FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
     }
 
-    public async Task<Profile> Create(Profile profile)
+    public async Task<ProfileEntity> Create(ProfileEntity profile)
     {
 
-        var newprofile = new Profile
+        var newprofile = new ProfileEntity
         {
+            IsActive = true,
             Name = profile.Name,
             Icon = profile.Icon,
             Password = profile.Password
@@ -37,13 +38,13 @@ public class ProfileService : IProfileService
         return profile;
     }
 
-    public async Task<Profile> UpdateById(Profile profile)
+    public async Task<ProfileEntity> UpdateById(ProfileEntity profile)
     {
         if (profile.Id == 0)
         {
             return null;
         }
-        var existingProfile = await _context.Profile.FindAsync(profile.Id);
+        var existingProfile = await _context.Profile.FirstOrDefaultAsync(p => p.Id == profile.Id && p.IsActive);
         if (existingProfile == null)
         {
             return null;
