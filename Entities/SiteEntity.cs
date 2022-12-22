@@ -10,5 +10,5 @@ public class SiteEntity
     public DateTime? Date { get; set; }
     public string Password { get; set; }
     public string Description { get; set; }
-    public bool IsActive { get; set; }
+    public Boolean IsActive { get; set; }
 }
