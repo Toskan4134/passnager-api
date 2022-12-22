@@ -6,5 +6,5 @@ public class ProfileEntity
     public string Name { get; set; }
     public byte[] Icon { get; set; }
     public string Password { get; set; }
-    public bool IsActive { get; set; }
+    public Boolean IsActive { get; set; }
 }
