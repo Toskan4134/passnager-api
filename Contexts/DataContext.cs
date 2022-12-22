@@ -11,4 +11,5 @@ public class DataContext : DbContext
 
     public DbSet<ProfileEntity> Profile { get; set; }
 
+    public DbSet<CategoryEntity> Category { get; set; }
 }

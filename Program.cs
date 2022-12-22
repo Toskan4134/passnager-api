@@ -20,6 +20,8 @@ builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(conStrBu
 builder.Services.AddTransient<DataContext>();
 builder.Services.AddTransient<IProfileService, ProfileService>();
 builder.Services.AddTransient<ISiteService, SiteService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+
 builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: "frontendOrigin",
