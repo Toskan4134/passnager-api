@@ -6,5 +6,5 @@ public class CategoryEntity
     public int ProfileId { get; set; }
     public string Name { get; set; }
     public byte[] Icon { get; set; }
-    public bool IsActive { get; set; }
+    public Boolean IsActive { get; set; }
 }
