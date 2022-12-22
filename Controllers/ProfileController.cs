@@ -16,7 +16,7 @@ public class ProfileController : ControllerBase
 
     // GET /profiles
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
+    public async Task<ActionResult<IEnumerable<ProfileEntity>>> GetProfiles()
     {
         // Llama al método que recupera todos los perfiles de la base de datos
         var profiles = await _profileService.GetAll();
@@ -25,7 +25,7 @@ public class ProfileController : ControllerBase
 
     // GET /profiles/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<Profile>> GetProfileById(int id)
+    public async Task<ActionResult<ProfileEntity>> GetProfileById(int id)
     {
         // Llama al método que recupera un perfil por su ID
         var profile = await _profileService.GetById(id);
@@ -39,7 +39,7 @@ public class ProfileController : ControllerBase
 
     // POST /profiles
     [HttpPost]
-    public async Task<IActionResult> CreateProfile([FromBody] Profile profile)
+    public async Task<IActionResult> CreateProfile([FromBody] ProfileEntity profile)
     {
         // Valida los datos del nuevo perfil
         if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ public class ProfileController : ControllerBase
 
     // PUT /profiles/{id}
     [HttpPut]
-    public async Task<ActionResult> EditProfileById([FromBody] Profile profile)
+    public async Task<ActionResult> EditProfileById([FromBody] ProfileEntity profile)
     {
         // Llama al método que actualiza un perfil existente en la base de datos
         var profileEdited = await _profileService.UpdateById(profile);
