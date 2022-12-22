@@ -9,4 +9,5 @@ public class DataContext : DbContext
     }
 
     public DbSet<Profile> Profile { get; set; }
+    public DbSet<SiteEntity> Site { get; set; }
 }
