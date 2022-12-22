@@ -40,7 +40,7 @@ public class SiteService : ISiteService
                 filtered = await _context.Site.Where(s => s.CategoryId == id && s.Description.ToLower().Contains(value)).ToListAsync();
                 break;
         }
-        return filtered;
+        return filtered ?? null;
     }
 
 
