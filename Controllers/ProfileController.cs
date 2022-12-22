@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using passnager_api;
 
@@ -6,12 +5,12 @@ using passnager_api;
 public class ProfileController : ControllerBase
 {
     // Aquí debes inyectar una dependencia que te permita acceder a la base de datos y modificar los perfiles
-    private readonly IProfileRepository _profileRepository;
+    private readonly IProfileService _profileService;
     private readonly DataContext _context;
 
-    public ProfileController(IProfileRepository profileRepository, DataContext context)
+    public ProfileController(IProfileService profileService, DataContext context)
     {
-        _profileRepository = profileRepository;
+        _profileService = profileService;
         _context = context;
     }
 
@@ -20,7 +19,7 @@ public class ProfileController : ControllerBase
     public async Task<ActionResult<IEnumerable<Profile>>> GetProfiles()
     {
         // Llama al método que recupera todos los perfiles de la base de datos
-        var profiles = await _profileRepository.GetAll();
+        var profiles = await _profileService.GetAll();
         return Ok(profiles);
     }
 
@@ -29,7 +28,7 @@ public class ProfileController : ControllerBase
     public async Task<ActionResult<Profile>> GetProfileById(int id)
     {
         // Llama al método que recupera un perfil por su ID
-        var profile = await _profileRepository.GetById(id);
+        var profile = await _profileService.GetById(id);
         if (profile == null)
         {
             return NotFound();
@@ -49,19 +48,19 @@ public class ProfileController : ControllerBase
         }
 
         // Crea un nuevo objeto de perfil a partir de los datos del nuevo perfil
-        var newProfile = await _profileRepository.Create(profile);
+        var newProfile = await _profileService.Create(profile);
 
         // Devuelve el nuevo perfil creado
         return Ok(newProfile);
     }
 
     // PUT /profiles/{id}
-    [HttpPut("{id}")]
-    public async Task<ActionResult> EditProfileById(int id, Profile profile)
+    [HttpPut]
+    public async Task<ActionResult> EditProfileById([FromBody] Profile profile)
     {
         // Llama al método que actualiza un perfil existente en la base de datos
-        var profileEdited = await _profileRepository.UpdateById(id, profile);
-        if (profileEdited.Equals(null))
+        var profileEdited = await _profileService.UpdateById(profile);
+        if (profileEdited == null)
         {
             return NotFound();
         }

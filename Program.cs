@@ -18,7 +18,7 @@ conStrBuilder.Password = builder.Configuration["DBPassword"];
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(conStrBuilder.ConnectionString));
 
 builder.Services.AddTransient<DataContext>();
-
+builder.Services.AddTransient<IProfileService, ProfileService>();
 
 builder.Services.AddCors(options =>
             {

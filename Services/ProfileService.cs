@@ -1,11 +1,11 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
 
-public class ProfileRepository : IProfileRepository
+public class ProfileService : IProfileService
 {
     private readonly DataContext _context;
 
-    public ProfileRepository(DataContext context)
+    public ProfileService(DataContext context)
     {
         _context = context;
     }
@@ -22,6 +22,7 @@ public class ProfileRepository : IProfileRepository
 
     public async Task<Profile> Create(Profile profile)
     {
+
         var newprofile = new Profile
         {
             Name = profile.Name,
@@ -30,23 +31,36 @@ public class ProfileRepository : IProfileRepository
         };
 
         // Guarda el nuevo perfil en la base de datos
-        _context.Profile.Add(newprofile);
+        await _context.Profile.AddAsync(newprofile);
         await _context.SaveChangesAsync();
 
         return profile;
     }
 
-    public async Task<Profile> UpdateById(int id, Profile profile)
+    public async Task<Profile> UpdateById(Profile profile)
     {
-        var existingProfile = await _context.Profile.FindAsync(id);
+        if (profile.Id == 0)
+        {
+            return null;
+        }
+        var existingProfile = await _context.Profile.FindAsync(profile.Id);
         if (existingProfile == null)
         {
             return null;
         }
 
-        existingProfile.Name = profile.Name;
-        existingProfile.Icon = profile.Icon;
-        existingProfile.Password = profile.Password;
+        if (profile.Name != null)
+        {
+            existingProfile.Name = profile.Name;
+        }
+        if (profile.Password != null)
+        {
+            existingProfile.Password = profile.Password;
+        }
+        if (profile.Icon != null)
+        {
+            existingProfile.Icon = profile.Icon;
+        }
         _context.Profile.Update(existingProfile);
         await _context.SaveChangesAsync();
         return existingProfile;
