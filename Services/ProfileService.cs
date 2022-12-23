@@ -15,9 +15,14 @@ public class ProfileService : IProfileService
         return await _context.Profile.Where(p => p.IsActive).ToListAsync();
     }
 
-    public async Task<ProfileEntity> GetById(int id)
+    public async Task<Boolean> CheckLogin(ProfileEntity profile)
     {
-        return await _context.Profile.FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
+        var existingProfile = await _context.Profile.FirstOrDefaultAsync(p => p.Id == profile.Id && p.Password == profile.Password && p.IsActive);
+        if (existingProfile != null)
+        {
+            return true;
+        }
+        return false;
     }
 
     public async Task<ProfileEntity> Create(ProfileEntity profile)

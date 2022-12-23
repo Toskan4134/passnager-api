@@ -16,25 +16,25 @@ public class ProfileController : ControllerBase
 
     // GET /profiles
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ProfileEntity>>> GetProfiles()
+    public async Task<ActionResult<List<ProfileEntity>>> GetProfiles()
     {
         // Llama al método que recupera todos los perfiles de la base de datos
         var profiles = await _profileService.GetAll();
         return Ok(profiles);
     }
 
-    // GET /profiles/{id}
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ProfileEntity>> GetProfileById(int id)
+    // Post /profiles/CheckLogin
+    [HttpPost("CheckLogin")]
+    public async Task<ActionResult<Boolean>> CheckLogin([FromBody] ProfileEntity profile)
     {
-        // Llama al método que recupera un perfil por su ID
-        var profile = await _profileService.GetById(id);
+        // Llama al método que comprueba su ID y Contraseña
+        var checkLogin = await _profileService.CheckLogin(profile);
         if (profile == null)
         {
             return NotFound();
         }
 
-        return Ok(profile);
+        return Ok(checkLogin);
     }
 
     // POST /profiles
