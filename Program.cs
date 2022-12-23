@@ -7,7 +7,6 @@ if (Environment.GetEnvironmentVariable("DB_PASSWORD") != null)
 {
     builder.Configuration["DBPassword"] = Environment.GetEnvironmentVariable("DB_PASSWORD");
 }
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,16 +20,15 @@ builder.Services.AddTransient<DataContext>();
 builder.Services.AddTransient<IProfileService, ProfileService>();
 builder.Services.AddTransient<ISiteService, SiteService>();
 builder.Services.AddTransient<ICategoryService, CategoryService>();
-
 builder.Services.AddCors(options =>
             {
                 options.AddPolicy(name: "frontendOrigin",
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:5500").AllowAnyHeader().AllowAnyMethod();
+                        policy.WithOrigins("http://127.0.0.1:4134", "http://localhost:4134").AllowAnyHeader().AllowAnyMethod();
                     });
             });
-
+builder.Services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -41,7 +39,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("frontendOrigin");
-
+app.UseMvc();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
