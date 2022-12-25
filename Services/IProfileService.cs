@@ -7,4 +7,5 @@ public interface IProfileService
     Task<Boolean> CheckLogin(ProfileEntity profile);
     Task<ProfileEntity> Create(ProfileEntity profile);
     Task<ProfileEntity> Update(ProfileEntity profile);
+    Task<ProfileEntity> DeleteById(int id);
 }

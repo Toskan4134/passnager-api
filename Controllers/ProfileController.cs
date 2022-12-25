@@ -78,4 +78,18 @@ public class ProfileController : ControllerBase
 
         return Ok(profileEdited);
     }
+
+    // DELETE /profiles/{profileId}
+    [HttpDelete("{profileId}")]
+    public async Task<ActionResult> DeleteProfileById(int profileId)
+    {
+        // Llama al método que elimina un perfil activo en la base de datos
+        var profileDeleted = await _profileService.DeleteById(profileId);
+        if (profileDeleted == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(profileDeleted);
+    }
 }

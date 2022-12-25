@@ -76,5 +76,24 @@ public class ProfileService : IProfileService
         await _context.SaveChangesAsync();
         return existingProfile;
     }
+
+
+    public async Task<ProfileEntity> DeleteById(int id)
+    {
+        if (id == 0)
+        {
+            return null;
+        }
+        var existingProfile = await _context.Profile.FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
+        if (existingProfile == null)
+        {
+            return null;
+        }
+
+        existingProfile.IsActive = false;
+        _context.Profile.Update(existingProfile);
+        await _context.SaveChangesAsync();
+        return existingProfile;
+    }
 }
 
