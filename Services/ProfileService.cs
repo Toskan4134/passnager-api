@@ -48,7 +48,7 @@ public class ProfileService : IProfileService
         return profile;
     }
 
-    public async Task<ProfileEntity> UpdateById(ProfileEntity profile)
+    public async Task<ProfileEntity> Update(ProfileEntity profile)
     {
         if (profile.Id == 0)
         {

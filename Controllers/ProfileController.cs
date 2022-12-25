@@ -65,12 +65,12 @@ public class ProfileController : ControllerBase
         return Ok(newProfile);
     }
 
-    // PUT /profiles/{id}
+    // PUT /profiles
     [HttpPut]
-    public async Task<ActionResult> EditProfileById([FromBody] ProfileEntity profile)
+    public async Task<ActionResult> EditProfile([FromBody] ProfileEntity profile)
     {
         // Llama al método que actualiza un perfil existente en la base de datos
-        var profileEdited = await _profileService.UpdateById(profile);
+        var profileEdited = await _profileService.Update(profile);
         if (profileEdited == null)
         {
             return NotFound();
