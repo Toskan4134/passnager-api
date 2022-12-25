@@ -5,4 +5,5 @@ public interface ISiteService
     Task<List<SiteEntity>> GetByFilter(int id, string filter, string value);
     Task<SiteEntity> Create(SiteEntity site);
     Task<SiteEntity> Update(SiteEntity site);
+    Task<SiteEntity> DeleteById(int id);
 }
