@@ -22,22 +22,22 @@ public class SiteService : ISiteService
         switch (filter)
         {
             case "all":
-                filtered = await _context.Site.Where(s => s.CategoryId == id && (s.Site.ToLower().Contains(value) || s.Url.ToLower().Contains(value) || s.User.ToLower().Contains(value) || s.Date.ToString().ToLower().Contains(value) || s.Description.ToLower().Contains(value))).ToListAsync();
+                filtered = await _context.Site.Where(s => s.IsActive && s.CategoryId == id && (s.Site.ToLower().Contains(value) || s.Url.ToLower().Contains(value) || s.User.ToLower().Contains(value) || s.Date.ToString().ToLower().Contains(value) || s.Description.ToLower().Contains(value))).ToListAsync();
                 break;
             case "site":
-                filtered = await _context.Site.Where(s => s.CategoryId == id && s.Site.ToLower().Contains(value)).ToListAsync();
+                filtered = await _context.Site.Where(s => s.IsActive && s.CategoryId == id && s.Site.ToLower().Contains(value)).ToListAsync();
                 break;
             case "url":
-                filtered = await _context.Site.Where(s => s.CategoryId == id && s.Url.ToLower().Contains(value)).ToListAsync();
+                filtered = await _context.Site.Where(s => s.IsActive && s.CategoryId == id && s.Url.ToLower().Contains(value)).ToListAsync();
                 break;
             case "user":
-                filtered = await _context.Site.Where(s => s.CategoryId == id && s.User.ToLower().Contains(value)).ToListAsync();
+                filtered = await _context.Site.Where(s => s.IsActive && s.CategoryId == id && s.User.ToLower().Contains(value)).ToListAsync();
                 break;
             case "date":
-                filtered = await _context.Site.Where(s => s.CategoryId == id && s.Date.ToString().ToLower().Contains(value)).ToListAsync();
+                filtered = await _context.Site.Where(s => s.IsActive && s.CategoryId == id && s.Date.ToString().ToLower().Contains(value)).ToListAsync();
                 break;
             case "description":
-                filtered = await _context.Site.Where(s => s.CategoryId == id && s.Description.ToLower().Contains(value)).ToListAsync();
+                filtered = await _context.Site.Where(s => s.IsActive && s.CategoryId == id && s.Description.ToLower().Contains(value)).ToListAsync();
                 break;
         }
         return filtered ?? null;
