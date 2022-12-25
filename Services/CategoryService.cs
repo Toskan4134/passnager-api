@@ -59,5 +59,22 @@ public class CategoryService : ICategoryService
         await _context.SaveChangesAsync();
         return existingCategory;
     }
-}
 
+    public async Task<CategoryEntity> DeleteById(int id)
+    {
+        if (id == 0)
+        {
+            return null;
+        }
+        var existingCategory = await _context.Category.FirstOrDefaultAsync(p => p.Id == id && p.IsActive);
+        if (existingCategory == null)
+        {
+            return null;
+        }
+
+        existingCategory.IsActive = false;
+        _context.Category.Update(existingCategory);
+        await _context.SaveChangesAsync();
+        return existingCategory;
+    }
+}
