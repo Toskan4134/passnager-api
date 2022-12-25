@@ -23,6 +23,17 @@ public class ProfileController : ControllerBase
         return Ok(profiles);
     }
 
+    // GET /profiles/{profileId}
+    [HttpGet("{profileId}")]
+    public async Task<ActionResult<ProfileEntity>> GetProfileById(int profileId)
+    {
+        // Llama al método que recupera todos los perfiles de la base de datos
+        var profiles = await _profileService.GetProfileById(profileId);
+        return Ok(profiles);
+    }
+
+
+
     // Post /profiles/CheckLogin
     [HttpPost("CheckLogin")]
     public async Task<ActionResult<Boolean>> CheckLogin([FromBody] ProfileEntity profile)
