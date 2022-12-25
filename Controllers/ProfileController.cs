@@ -65,17 +65,31 @@ public class ProfileController : ControllerBase
         return Ok(newProfile);
     }
 
-    // PUT /profiles/{id}
+    // PUT /profiles
     [HttpPut]
-    public async Task<ActionResult> EditProfileById([FromBody] ProfileEntity profile)
+    public async Task<ActionResult> EditProfile([FromBody] ProfileEntity profile)
     {
         // Llama al método que actualiza un perfil existente en la base de datos
-        var profileEdited = await _profileService.UpdateById(profile);
+        var profileEdited = await _profileService.Update(profile);
         if (profileEdited == null)
         {
             return NotFound();
         }
 
         return Ok(profileEdited);
+    }
+
+    // DELETE /profiles/{profileId}
+    [HttpDelete("{profileId}")]
+    public async Task<ActionResult> DeleteProfileById(int profileId)
+    {
+        // Llama al método que elimina un perfil activo en la base de datos
+        var profileDeleted = await _profileService.DeleteById(profileId);
+        if (profileDeleted == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(profileDeleted);
     }
 }
