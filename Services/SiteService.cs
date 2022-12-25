@@ -105,5 +105,23 @@ public class SiteService : ISiteService
         await _context.SaveChangesAsync();
         return existingSite;
     }
+
+    public async Task<SiteEntity> DeleteById(int id)
+    {
+        if (id == 0)
+        {
+            return null;
+        }
+        var existingSite = await _context.Site.FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
+        if (existingSite == null)
+        {
+            return null;
+        }
+
+        existingSite.IsActive = false;
+        _context.Site.Update(existingSite);
+        await _context.SaveChangesAsync();
+        return existingSite;
+    }
 }
 
