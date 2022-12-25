@@ -52,4 +52,18 @@ public class CategoryController : ControllerBase
 
         return Ok(categoryEdited);
     }
+
+
+    // DELETE /category/{categoryId}
+    [HttpDelete("{categoryId}")]
+    public async Task<ActionResult> DeleteCategoryById(int categoryId)
+    {
+        var categoryDeleted = await _categoryService.DeleteById(categoryId);
+        if (categoryDeleted == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(categoryDeleted);
+    }
 }
