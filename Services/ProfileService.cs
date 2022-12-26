@@ -12,7 +12,7 @@ public class ProfileService : IProfileService
 
     public async Task<List<ProfileEntity>> GetAll()
     {
-        return await _context.Profile.Where(p => p.IsActive).ToListAsync();
+        return await _context.Profile.Where(p => p.IsActive).OrderBy(p => p.Id).ToListAsync();
     }
 
     public async Task<ProfileEntity> GetProfileById(int id)

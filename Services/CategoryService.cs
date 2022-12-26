@@ -12,7 +12,7 @@ public class CategoryService : ICategoryService
 
     public async Task<List<CategoryEntity>> GetAllByProfileId(int id)
     {
-        return await _context.Category.Where(c => c.ProfileId == id && c.IsActive).ToListAsync();
+        return await _context.Category.Where(c => c.ProfileId == id && c.IsActive).OrderBy(c => c.Id).ToListAsync();
     }
 
     public async Task<CategoryEntity> Create(CategoryEntity category)
