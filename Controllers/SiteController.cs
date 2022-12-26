@@ -31,9 +31,9 @@ public class SiteController : ControllerBase
 
     // GET /site/GetByCategory/{categoryId}/filter?value=xxx
     [HttpGet("GetByCategory/{categoryId}/{filter}")]
-    public async Task<ActionResult<List<SiteEntity>>> GetByFilter(int categorId, string filter, [FromQuery(Name = "value")] string value)
+    public async Task<ActionResult<List<SiteEntity>>> GetByFilter(int categoryId, string filter, [FromQuery(Name = "value")] string value)
     {
-        var sites = await _siteService.GetByFilter(categorId, filter, value);
+        var sites = await _siteService.GetByFilter(categoryId, filter, value);
         return Ok(sites);
     }
 
