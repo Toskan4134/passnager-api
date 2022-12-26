@@ -15,17 +15,25 @@ public class SiteController : ControllerBase
 
     // GET /site/{id}
     [HttpGet("{id}")]
-    public async Task<ActionResult<List<SiteEntity>>> GetAllByCategoryId(int id)
+    public async Task<ActionResult<SiteEntity>> GetSiteById(int id)
     {
-        var sites = await _siteService.GetAllByCategoryId(id);
+        var site = await _siteService.GetSiteById(id);
+        return Ok(site);
+    }
+
+    // GET /site/GetByCategory/{categoryId}
+    [HttpGet("GetByCategory/{categoryId}")]
+    public async Task<ActionResult<List<SiteEntity>>> GetAllByCategoryId(int categoryId)
+    {
+        var sites = await _siteService.GetAllByCategoryId(categoryId);
         return Ok(sites);
     }
 
-    // GET /site/{id}/filter?value=xxx
-    [HttpGet("{id}/{filter}")]
-    public async Task<ActionResult<List<SiteEntity>>> GetByFilter(int id, string filter, [FromQuery(Name = "value")] string value)
+    // GET /site/GetByCategory/{categoryId}/filter?value=xxx
+    [HttpGet("GetByCategory/{categoryId}/{filter}")]
+    public async Task<ActionResult<List<SiteEntity>>> GetByFilter(int categorId, string filter, [FromQuery(Name = "value")] string value)
     {
-        var sites = await _siteService.GetByFilter(id, filter, value);
+        var sites = await _siteService.GetByFilter(categorId, filter, value);
         return Ok(sites);
     }
 

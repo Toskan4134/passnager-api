@@ -10,6 +10,11 @@ public class SiteService : ISiteService
         _context = context;
     }
 
+    public async Task<SiteEntity> GetSiteById(int id)
+    {
+        return await _context.Site.FirstOrDefaultAsync(s => s.Id == id && s.IsActive);
+    }
+
     public async Task<List<SiteEntity>> GetAllByCategoryId(int id)
     {
         return await _context.Site.Where(s => s.CategoryId == id && s.IsActive).OrderBy(s => s.Site).ToListAsync();
