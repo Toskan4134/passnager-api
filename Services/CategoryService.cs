@@ -10,6 +10,10 @@ public class CategoryService : ICategoryService
         _context = context;
     }
 
+    public async Task<CategoryEntity> GetCategoryById(int id)
+    {
+        return await _context.Category.FirstOrDefaultAsync(c => c.Id == id && c.IsActive);
+    }
     public async Task<List<CategoryEntity>> GetAllByProfileId(int id)
     {
         return await _context.Category.Where(c => c.ProfileId == id && c.IsActive).OrderBy(c => c.Id).ToListAsync();

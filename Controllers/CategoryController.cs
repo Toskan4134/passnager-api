@@ -13,11 +13,23 @@ public class CategoryController : ControllerBase
         _context = context;
     }
 
-    // GET /category/{id}
-    [HttpGet("{profileId}")]
+    // GET /category/GetByProfile/{profileId}
+    [HttpGet("GetByProfile/{profileId}")]
     public async Task<ActionResult<CategoryEntity>> GetCategoriesByProfileId(int profileId)
     {
         var category = await _categoryService.GetAllByProfileId(profileId);
+        if (category == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(category);
+    }
+    // GET /category/{id}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<CategoryEntity>> GetCategoryById(int id)
+    {
+        var category = await _categoryService.GetCategoryById(id);
         if (category == null)
         {
             return NotFound();
@@ -54,11 +66,11 @@ public class CategoryController : ControllerBase
     }
 
 
-    // DELETE /category/{categoryId}
-    [HttpDelete("{categoryId}")]
-    public async Task<ActionResult> DeleteCategoryById(int categoryId)
+    // DELETE /category/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteCategoryById(int id)
     {
-        var categoryDeleted = await _categoryService.DeleteById(categoryId);
+        var categoryDeleted = await _categoryService.DeleteById(id);
         if (categoryDeleted == null)
         {
             return NotFound();
