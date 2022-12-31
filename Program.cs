@@ -25,7 +25,8 @@ builder.Services.AddCors(options =>
                 options.AddPolicy(name: "frontendOrigin",
                     policy =>
                     {
-                        policy.WithOrigins("http://127.0.0.1:4134", "http://localhost:4134").AllowAnyHeader().AllowAnyMethod();
+                        // policy.WithOrigins("http://127.0.0.1:3000", "http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
+                        policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                     });
             });
 builder.Services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
