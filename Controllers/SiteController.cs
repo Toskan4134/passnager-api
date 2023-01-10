@@ -64,12 +64,12 @@ public class SiteController : ControllerBase
         return Ok(profileEdited);
     }
 
-    // DELETE /site/{siteId}
-    [HttpDelete("{siteId}")]
-    public async Task<ActionResult> DeleteSiteById(int siteId)
+    // DELETE /site/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteSiteById(int id)
     {
         // Llama al método que elimina un perfil activo en la base de datos
-        var siteDeleted = await _siteService.DeleteById(siteId);
+        var siteDeleted = await _siteService.DeleteById(id);
         if (siteDeleted == null)
         {
             return NotFound();

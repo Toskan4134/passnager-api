@@ -23,12 +23,12 @@ public class ProfileController : ControllerBase
         return Ok(profiles);
     }
 
-    // GET /profiles/{profileId}
-    [HttpGet("{profileId}")]
-    public async Task<ActionResult<ProfileEntity>> GetProfileById(int profileId)
+    // GET /profiles/{id}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProfileEntity>> GetProfileById(int id)
     {
         // Llama al método que recupera todos los perfiles de la base de datos
-        var profiles = await _profileService.GetProfileById(profileId);
+        var profiles = await _profileService.GetProfileById(id);
         return Ok(profiles);
     }
 
@@ -79,12 +79,12 @@ public class ProfileController : ControllerBase
         return Ok(profileEdited);
     }
 
-    // DELETE /profiles/{profileId}
-    [HttpDelete("{profileId}")]
-    public async Task<ActionResult> DeleteProfileById(int profileId)
+    // DELETE /profiles/{id}
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteProfileById(int id)
     {
         // Llama al método que elimina un perfil activo en la base de datos
-        var profileDeleted = await _profileService.DeleteById(profileId);
+        var profileDeleted = await _profileService.DeleteById(id);
         if (profileDeleted == null)
         {
             return NotFound();
