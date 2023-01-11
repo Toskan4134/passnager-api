@@ -1,13 +1,14 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
-
+using NLog;
 public class SiteService : ISiteService
 {
     private readonly DataContext _context;
-
-    public SiteService(DataContext context)
+    private readonly NLog.ILogger _logger;
+    public SiteService(DataContext context, NLog.ILogger logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public async Task<SiteEntity> GetSiteById(int id)
