@@ -47,6 +47,7 @@ public class SiteController : ControllerBase
         }
 
         var newSite = await _siteService.Create(site);
+        Logger.addLog($"Sitio Creado: {newSite.Site} - {newSite.Url}");
 
         return Ok(newSite);
     }
@@ -55,13 +56,14 @@ public class SiteController : ControllerBase
     [HttpPut]
     public async Task<ActionResult> EditSite([FromBody] SiteEntity site)
     {
-        var profileEdited = await _siteService.Update(site);
-        if (profileEdited == null)
+        var siteEdited = await _siteService.Update(site);
+        if (siteEdited == null)
         {
             return NotFound();
         }
+        Logger.addLog($"Sitio Editado: {siteEdited.Site} - {siteEdited.Url} ({siteEdited.Id})");
 
-        return Ok(profileEdited);
+        return Ok(siteEdited);
     }
 
     // DELETE /site/{id}
@@ -72,8 +74,12 @@ public class SiteController : ControllerBase
         var siteDeleted = await _siteService.DeleteById(id);
         if (siteDeleted == null)
         {
+            Logger.addLog($"Sitio no encontrado al intentar borrarlo: ID: {id}", "warn");
+
             return NotFound();
         }
+        Logger.addLog($"Sitio Eliminado: {siteDeleted.Site} - {siteDeleted.Url} ({id})");
+
 
         return Ok(siteDeleted);
     }

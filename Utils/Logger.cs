@@ -27,23 +27,28 @@ public class Logger
         DateTime date = DateTime.Now;
         _filePath = Path.Combine(_path, _folder, $"log_{((DateTimeOffset)date).ToUnixTimeSeconds()}.txt");
         File.Create(_filePath).Close();
+        File.AppendAllText(_filePath, "Log Iniciado\n\n");
     }
 
 
-    public static void addInfo(string text, string header = "[INFO]:")
+    public static void addLog(string text, string type = "info")
     {
+        DateTime date = DateTime.Now;
         if (!File.Exists(_filePath)) CreateFile();
-        File.AppendAllText(_filePath, header + " " + text + "\n\n");
-    }
-    public static void addWarn(string text, string header = "[WARN]: ")
-    {
-        if (!File.Exists(_filePath)) CreateFile();
-        File.AppendAllText(_filePath, header + " " + text + "\n\n");
-    }
-    public static void addError(string text, string header = "[ERROR]: ")
-    {
-        if (!File.Exists(_filePath)) CreateFile();
-        File.AppendAllText(_filePath, header + " " + text + "\n\n");
+        string header = "";
+        switch (type)
+        {
+            case "info":
+                header = "[INFO]";
+                break;
+            case "warn":
+                header = "[WARN]";
+                break;
+            case "error":
+                header = "[ERROR]";
+                break;
+        }
+        File.AppendAllText(_filePath, date.ToLongTimeString() + " " + header + " " + text + "\n\n");
     }
     // public async Task<List<ProfileEntity>> GetAll()
     // {
