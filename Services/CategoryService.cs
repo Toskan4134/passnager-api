@@ -1,14 +1,11 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
-using NLog;
 public class CategoryService : ICategoryService
 {
     private readonly DataContext _context;
-    private readonly NLog.ILogger _logger;
-    public CategoryService(DataContext context, NLog.ILogger logger)
+    public CategoryService(DataContext context)
     {
         _context = context;
-        _logger = logger;
     }
 
     public async Task<CategoryEntity> GetCategoryById(int id)

@@ -1,15 +1,12 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
-using NLog;
 public class ProfileService : IProfileService
 {
     private readonly DataContext _context;
-    private readonly NLog.ILogger _logger;
 
-    public ProfileService(DataContext context, NLog.ILogger logger)
+    public ProfileService(DataContext context)
     {
         _context = context;
-        _logger = logger;
     }
 
     public async Task<List<ProfileEntity>> GetAll()

@@ -1,30 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using NLog;
-using NLog.Targets;
-using NLog.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurar NLog
-var config = new LoggingConfiguration();
-var fileTarget = new FileTarget("file")
-{
-    FileName = "${basedir}/logs/${shortdate}.log",
-    Layout = "${longdate}|${level:uppercase=true}|${logger}|${message}"
-};
-config.AddTarget(fileTarget);
-config.AddRuleForAllLevels(fileTarget);
-LogManager.Configuration = config;
-
-var logger = LogManager.GetCurrentClassLogger();
 
 if (Environment.GetEnvironmentVariable("DB_PASSWORD") != null)
 {
     builder.Configuration["DBPassword"] = Environment.GetEnvironmentVariable("DB_PASSWORD");
 }
 builder.Services.AddControllers();
-builder.Services.AddSingleton(typeof(NLog.ILogger), logger);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -46,6 +30,10 @@ builder.Services.AddCors(options =>
                     });
             });
 builder.Services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
+
+//Logger
+Logger logger = new Logger("./logs");
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
