@@ -11,7 +11,6 @@ public class Logger
         _path = path;
         CheckAndCreateFolder();
         CreateFile();
-        Console.WriteLine($"Path: {_path}, Folder: {_folder}, File: {_filePath}");
     }
 
     private void CheckAndCreateFolder()
@@ -31,7 +30,7 @@ public class Logger
     }
 
 
-    public static void addLog(string text, string type = "info")
+    public static void addLog(string text, string type = "info", string customHeader = "[CUSTOM]")
     {
         DateTime date = DateTime.Now;
         if (!File.Exists(_filePath)) CreateFile();
@@ -46,6 +45,9 @@ public class Logger
                 break;
             case "error":
                 header = "[ERROR]";
+                break;
+            case "custom":
+                header = customHeader;
                 break;
         }
         File.AppendAllText(_filePath, date.ToLongTimeString() + " " + header + " " + text + "\n\n");
