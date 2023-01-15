@@ -1,10 +1,8 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
-
 public class SiteService : ISiteService
 {
     private readonly DataContext _context;
-
     public SiteService(DataContext context)
     {
         _context = context;

@@ -1,6 +1,5 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
-
 public class ProfileService : IProfileService
 {
     private readonly DataContext _context;

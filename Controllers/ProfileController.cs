@@ -44,6 +44,11 @@ public class ProfileController : ControllerBase
         {
             return NotFound();
         }
+        if (checkLogin)
+            Logger.addLog($"Sesión Iniciada Correctamente: ID {profile.Id}");
+        else
+            Logger.addLog($"Sesión Inválida: ID {profile.Id}", "warn");
+
 
         return Ok(checkLogin);
     }
@@ -60,7 +65,7 @@ public class ProfileController : ControllerBase
 
         // Crea un nuevo objeto de perfil a partir de los datos del nuevo perfil
         var newProfile = await _profileService.Create(profile);
-
+        Logger.addLog($"Perfil Creado: {newProfile.Name}");
         // Devuelve el nuevo perfil creado
         return Ok(newProfile);
     }
@@ -75,6 +80,7 @@ public class ProfileController : ControllerBase
         {
             return NotFound();
         }
+        Logger.addLog($"Perfil Editado: {profileEdited.Name} ({profileEdited.Id})");
 
         return Ok(profileEdited);
     }
@@ -87,9 +93,10 @@ public class ProfileController : ControllerBase
         var profileDeleted = await _profileService.DeleteById(id);
         if (profileDeleted == null)
         {
+            Logger.addLog($"Perfíl no encontrado al intentar borrarlo: ID: {id}", "warn");
             return NotFound();
         }
-
+        Logger.addLog($"Perfíl Eliminado: {profileDeleted.Name} ({id})");
         return Ok(profileDeleted);
     }
 }

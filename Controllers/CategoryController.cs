@@ -47,6 +47,7 @@ public class CategoryController : ControllerBase
             return BadRequest(ModelState);
         }
 
+        Logger.addLog($"Categoría Creada: {category.Name}");
         var newCategory = await _categoryService.Create(category);
 
         return Ok(newCategory);
@@ -61,6 +62,7 @@ public class CategoryController : ControllerBase
         {
             return NotFound();
         }
+        Logger.addLog($"Categoría Editada: {categoryEdited.Name} ({categoryEdited.Id})");
 
         return Ok(categoryEdited);
     }
@@ -73,8 +75,10 @@ public class CategoryController : ControllerBase
         var categoryDeleted = await _categoryService.DeleteById(id);
         if (categoryDeleted == null)
         {
+            Logger.addLog($"Categoría no encontrada al intentar borrarla: ID: {id}", "warn");
             return NotFound();
         }
+        Logger.addLog($"Categoría Eliminada: {categoryDeleted.Name} ({id})");
 
         return Ok(categoryDeleted);
     }

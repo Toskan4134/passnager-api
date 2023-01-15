@@ -1,10 +1,8 @@
 using passnager_api;
 using Microsoft.EntityFrameworkCore;
-
 public class CategoryService : ICategoryService
 {
     private readonly DataContext _context;
-
     public CategoryService(DataContext context)
     {
         _context = context;
