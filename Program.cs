@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
@@ -31,6 +32,15 @@ builder.Services.AddCors(options =>
             });
 builder.Services.AddMvc().AddMvcOptions(e => e.EnableEndpointRouting = false);
 
+
+if (!builder.Environment.IsDevelopment())
+{
+    builder.Services.AddHttpsRedirection(options =>
+    {
+        options.RedirectStatusCode = (int)HttpStatusCode.PermanentRedirect;
+        options.HttpsPort = 5107;
+    });
+}
 //Logger
 Logger logger = new Logger("./logs");
 
@@ -45,7 +55,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("frontendOrigin");
 app.UseMvc();
-app.UseHttpsRedirection();
+// app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
