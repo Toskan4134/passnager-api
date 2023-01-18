@@ -1,3 +1,5 @@
+Postgresql Tables Created:
+
 ```postgresql
 CREATE TABLE "Profile" (
   "Id" SERIAL PRIMARY KEY,
@@ -27,6 +29,10 @@ CREATE TABLE "Site" (
   "IsActive" BOOLEAN NOT NULL
 );
 ```
+
+Docker Commands Used:
+```
 docker build --rm -t passnager-api/agaudes:latest .
 
-docker run --rm -p 5106:5106 -p 5107:5107 -e ASPNETCORE_HTTP_PORT=https://+:5107 -e ASPNETCORE_URLS=http://+:5106 -e DB_CONN_STRING="Server=localhost;Database=postgres;Username=postgres;Port=5432" passnager-api/agaudes
+docker run --rm passnager-api/agaudes
+```
