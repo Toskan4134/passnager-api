@@ -1,3 +1,5 @@
+Postgresql Tables Created:
+
 ```postgresql
 CREATE TABLE "Profile" (
   "Id" SERIAL PRIMARY KEY,
@@ -26,4 +28,11 @@ CREATE TABLE "Site" (
   "CategoryId" INTEGER NOT NULL REFERENCES "Category"("Id"),
   "IsActive" BOOLEAN NOT NULL
 );
+```
+
+Docker Commands Used:
+```
+docker build --rm -t passnager-api/agaudes:latest .
+
+docker run --rm passnager-api/agaudes -p 5106:5106
 ```
