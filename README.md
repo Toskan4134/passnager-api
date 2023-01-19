@@ -34,5 +34,5 @@ Docker Commands Used:
 ```
 docker build --rm -t passnager-api/agaudes:latest .
 
-docker run --rm passnager-api/agaudes
+docker run --rm passnager-api/agaudes -p 5106:5106
 ```

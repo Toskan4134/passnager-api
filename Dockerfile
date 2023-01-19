@@ -10,11 +10,9 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 EXPOSE 5106
-EXPOSE 5107
 
 VOLUME ["./app/logs"]
 
-ENV ASPNETCORE_HTTP_PORT=https://+:5107
 ENV ASPNETCORE_URLS=http://+:5106
 
 ENTRYPOINT ["dotnet", "passnager-api.dll"]
