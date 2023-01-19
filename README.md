@@ -1,4 +1,17 @@
-Postgresql Tables Created:
+# Passnager Api
+## How to Install
+
+### **Option 1 (Docker)**
+> 1º Install Docker\
+> 2º Execute the command `docker run -p 5106:5106 agaudes/passnager-api:v1`\
+> 3º Execute Front-End
+
+### **Option 2 (Local Code)**
+> 1º Instal Dotnet SDK 6.0+\
+> 2º Run in the current path `dotnet run`\
+> 3º Execute Front-End
+## Creation Progress
+### **Postgresql Tables Created:**
 
 ```postgresql
 CREATE TABLE "Profile" (
@@ -30,9 +43,13 @@ CREATE TABLE "Site" (
 );
 ```
 
-Docker Commands Used:
+### **Docker Commands Used:**
 ```
-docker build --rm -t passnager-api/agaudes:latest .
+docker build -t passnager-api .
 
-docker run --rm passnager-api/agaudes -p 5106:5106
+docker image tag passnager-api agaudes/passnager-api:v1
+
+docker run -p 5106:5106 agaudes/passnager-api:v1
+
+docker image push agaudes/passnager-api:v1
 ```
